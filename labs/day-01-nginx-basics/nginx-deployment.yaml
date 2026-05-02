@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: nginx
-        image: nginx
+        image: nginx:1.25
         ports:
         - containerPort: 80
 
@@ -28,4 +28,11 @@ spec:
             path: /
             port: 80
           initialDelaySeconds: 5
+          periodSeconds: 5
+
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 80
+          initialDelaySeconds: 10
           periodSeconds: 5
