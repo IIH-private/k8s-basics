@@ -1,0 +1,9 @@
+services:
+  - name: web
+    ports:
+      - 80
+      - 443
+  - name: db
+    ports:
+      - 5432
+      - 5433
