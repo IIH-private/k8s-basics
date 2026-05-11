@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: file-configmap 
+data:
+  app.properties: | 
+    color=green
+    environment=dev
+    version=1.0
+  database.properties: | 
+    host=db.company.local
+    port=5432    
