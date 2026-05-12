@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: env-single-key
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "env && sleep 3600"]
+      env:
+       - name: MY_REGION
+         valueFrom:
+           configMapKeyRef:
+             name: app-config
+             key: REGION

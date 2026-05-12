@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: exercise-1
+spec:
+  containers:
+    - name: myapp
+      image: busybox
+      command: ["sh", "-c", "env && sleep 3600"]
+      env:
+        - name: APP_NAME
+          value: myapp
+        - name: APP_PORT
+          value: "8080"        
