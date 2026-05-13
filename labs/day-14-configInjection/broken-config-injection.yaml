@@ -1,0 +1,28 @@
+# broken-config-injection.yaml
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config
+data:
+  MODE: production
+  LOG_LEVEL: debug
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-debug-pod
+spec:
+  containers:
+    - name: app
+      image: busybox
+      command: ["sh", "-c", "echo MODE=$MODE; echo LOG_LEVEL=$LOG_LEVEL; ls /etc/app-config; cat /etc/app-config/MODE; echo; sleep 3600"]
+      envFrom:
+        - configMapRef:
+            name: app-config
+      volumeMounts:
+        - name: config-volume
+          mountPath: /etc/app-config
+  volumes:
+    - name: config-volume
+      configMap:
+        name: app-config
