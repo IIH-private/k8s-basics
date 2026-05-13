@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: shared-volume-demo
+spec:
+  containers:
+    - name: writer
+      image: busybox:1.36
+      command: ["sh", "-c", "while true; do echo 'hello from writer' >> /shared/data.txt; sleep 5; done"]
+      volumeMounts:
+        - name: shared-data 
+          mountPath: /shared 
+          
+    - name: reader
+      image: busybox:1.36
+      command: ["sh", "-c", "while true; do cat /shared/data.txt; sleep 5; done"]   
+      volumeMounts:
+        - name: shared-data 
+          mountPath: /shared 
+  volumes:
+    - name: shared-data
+      emptyDir: {}      
