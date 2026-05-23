@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: broken-app
+  name: broken-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: broken-app
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: broken-app
+    spec:
+      containers:
+      - image: nginx:1.25
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: broken-app-service
+  name: broken-app-service
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: broken-app
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: broken-app-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - backend:
+          service:
+            name: broken-app-service
+            port:
+              number: 80
+        path: /app1
+        pathType: Prefix
+status:
+  loadBalancer: {}

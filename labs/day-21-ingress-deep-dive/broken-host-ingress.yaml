@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: broken-host-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app1.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: host-app1-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: app2.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: host-app2-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix

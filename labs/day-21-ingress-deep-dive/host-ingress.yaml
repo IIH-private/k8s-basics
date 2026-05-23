@@ -1,0 +1,115 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: host-app1
+  name: host-app1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: host-app1
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: host-app1
+    spec:
+      containers:
+      - image: nginx:1.25
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: host-app1-service
+  name: host-app1-service
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: host-app1
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: host-app2
+  name: host-app2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: host-app2
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: host-app2
+    spec:
+      containers:
+      - image: nginx:1.25
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: host-app2-service
+  name: host-app2-service
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: host-app2
+  type: ClusterIP
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: host-based-ingress
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: app1.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: host-app1-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  - host: app2.local
+    http:
+      paths:
+      - backend:
+          service:
+            name: host-app2-service
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+status:
+  loadBalancer: {}
