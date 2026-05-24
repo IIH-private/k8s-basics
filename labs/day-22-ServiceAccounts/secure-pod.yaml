@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: secure-pod
+  name: secure-pod
+spec:
+  automountServiceAccountToken: false
+  containers:
+  - image: busybox
+    name: secure-pod
+    command: ["sleep", "3600"]  

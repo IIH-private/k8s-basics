@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: api-checker
+  name: api-checker
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api-checker
+  template:
+    metadata:
+      labels:
+        app: api-checker
+    spec:
+      serviceAccountName: api-sa
+      automountServiceAccountToken: false  
+      containers:
+      - image: curlimages/curl
+        name: app
+        command: ["sleep", "3600"]  
+
