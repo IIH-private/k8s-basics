@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: secure-debug
+spec:
+  containers:
+  - image: busybox
+    name: app
+    command: ["sh", "-c", "echo hello > /data/file.txt && sleep 3600"]
+    volumeMounts:
+    - name: data
+      mountPath: /data
+    securityContext:
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop: ["All"]
+  volumes:
+   - name: data
+     emptyDir: {}     

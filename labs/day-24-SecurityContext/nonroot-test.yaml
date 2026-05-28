@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nonroot-test
+spec:
+  containers:
+  - image: nginx
+    name: app
+    securityContext:
+      runAsUser: 1000
+      runAsNonRoot: true

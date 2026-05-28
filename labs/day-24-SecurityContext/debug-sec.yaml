@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: debug-sec
+spec:
+  containers:
+  - image: nginx
+    name: app
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      readOnlyRootFilesystem: true
+      capabilities:
+        drop:
+        - ALL  
+    volumeMounts:
+    - name: cache
+      mountPath: /var/cache/nginx/
+    - name: run
+      mountPath: /run/
+    ports:
+      - containerPort: 80
+
+  volumes: 
+  - name: cache
+    emptyDir: {}    
+  - name: run
+    emptyDir: {}
