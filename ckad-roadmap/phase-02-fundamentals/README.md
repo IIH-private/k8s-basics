@@ -211,3 +211,24 @@ Understand the role of the kubelet as the agent running on every Worker Node.
 ### Summary
 
 The kubelet is the Worker Node agent responsible for ensuring that Pods assigned to its Node are running correctly. It receives Pod assignments through the kube-apiserver, works with the Container Runtime to start containers, monitors Pod health, and continuously reports status back to the Kubernetes Control Plane.
+
+---
+
+## Lab 2.9 – kube-proxy
+
+### Objective
+
+Understand the role of kube-proxy in Kubernetes networking.
+
+### Key points
+
+- A kube-proxy runs on every Worker Node.
+- kube-proxy manages networking rules for Kubernetes Services.
+- It forwards traffic from a Service to the appropriate Pods.
+- It provides load balancing across multiple Pod replicas.
+- It updates networking rules when Pods are created, removed or receive new IP addresses.
+- kube-proxy does not schedule Pods or start containers.
+
+### Summary
+
+The kube-proxy is the networking agent running on every Worker Node. It maintains the networking rules that allow Kubernetes Services to reliably route traffic to the correct Pods, even when Pod IP addresses change.
