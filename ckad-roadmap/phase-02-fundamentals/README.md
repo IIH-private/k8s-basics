@@ -155,3 +155,38 @@ Understand how the Kubernetes Scheduler selects the best Worker Node for a Pod.
 ### Summary
 
 The Kubernetes Scheduler is responsible for deciding where a Pod should run. It evaluates available Worker Nodes, filters out unsuitable candidates, scores the remaining Nodes, and assigns the Pod to the best available Node. The kubelet on the selected Worker Node is then responsible for starting the Pod.
+
+---
+
+## Lab 2.7 – Controller Manager
+
+### Objective
+
+Understand the role of the Kubernetes Controller Manager and how it maintains the desired state of the cluster.
+
+### Key points
+
+- The Controller Manager continuously compares the desired state with the current state.
+- It detects differences between the two states.
+- It creates or removes Kubernetes objects to reconcile the cluster state.
+- The Controller Manager does not select Worker Nodes.
+- The Scheduler selects the Node, and the kubelet starts the Pod.
+- The Controller Manager consists of multiple specialized controllers, each responsible for a specific Kubernetes resource.
+
+### Example
+
+Desired state:
+
+    Deployment replicas: 3
+
+Current state:
+
+    2 Pods running
+
+Result:
+
+    The Controller Manager detects the missing Pod and requests the creation of a new Pod. The Scheduler assigns it to a Worker Node, and the kubelet starts it.
+
+### Summary
+
+The Controller Manager is responsible for keeping the Kubernetes Cluster in the desired state. It continuously monitors the cluster and ensures that the actual state matches the user's declared configuration.
