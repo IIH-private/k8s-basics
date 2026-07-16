@@ -190,3 +190,24 @@ Result:
 ### Summary
 
 The Controller Manager is responsible for keeping the Kubernetes Cluster in the desired state. It continuously monitors the cluster and ensures that the actual state matches the user's declared configuration.
+
+---
+
+## Lab 2.8 – kubelet
+
+### Objective
+
+Understand the role of the kubelet as the agent running on every Worker Node.
+
+### Key points
+
+- A kubelet runs on every Worker Node.
+- The kubelet continuously watches the kube-apiserver for Pods assigned to its Node.
+- The kubelet requests the Container Runtime to create and start containers.
+- The kubelet monitors the health of running Pods.
+- The kubelet reports Pod status back to the kube-apiserver.
+- The kubelet does not schedule Pods or communicate directly with the Scheduler.
+
+### Summary
+
+The kubelet is the Worker Node agent responsible for ensuring that Pods assigned to its Node are running correctly. It receives Pod assignments through the kube-apiserver, works with the Container Runtime to start containers, monitors Pod health, and continuously reports status back to the Kubernetes Control Plane.
