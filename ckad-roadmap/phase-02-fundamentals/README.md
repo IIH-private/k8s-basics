@@ -133,3 +133,25 @@ Understand the role of etcd as the Kubernetes database.
 ### Summary
 
 etcd is the single source of truth for the Kubernetes Cluster. It stores the complete cluster state, allowing Kubernetes components to work together and maintain the desired state of the system.
+
+---
+
+## Lab 2.6 – Scheduler
+
+### Objective
+
+Understand how the Kubernetes Scheduler selects the best Worker Node for a Pod.
+
+### Key points
+
+- The Scheduler is responsible for assigning Pods to Worker Nodes.
+- It does not run Pods; it only selects the most suitable Node.
+- Scheduling is performed in two phases:
+  - Filtering: Remove Nodes that cannot run the Pod.
+  - Scoring: Rank the remaining Nodes and select the best one.
+- The Scheduler works with the desired state stored in etcd through the kube-apiserver.
+- After a Node is selected, the kubelet on that Worker Node starts the Pod.
+
+### Summary
+
+The Kubernetes Scheduler is responsible for deciding where a Pod should run. It evaluates available Worker Nodes, filters out unsuitable candidates, scores the remaining Nodes, and assigns the Pod to the best available Node. The kubelet on the selected Worker Node is then responsible for starting the Pod.
