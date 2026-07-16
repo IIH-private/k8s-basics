@@ -82,3 +82,54 @@ Understand the role of the Kubernetes Control Plane and its main components.
 ### Summary
 
 The Control Plane coordinates the entire Kubernetes Cluster. It receives requests through the kube-apiserver, stores the desired state in etcd, detects differences between the desired and current state, schedules workloads to Worker Nodes, and ensures that the cluster continuously matches the desired state.
+
+---
+
+## Lab 2.4 – kube-apiserver
+
+### Objective
+
+Understand the role of the kube-apiserver as the central communication component in Kubernetes.
+
+### Key points
+
+- The kube-apiserver is the entry point to the Kubernetes Cluster.
+- All kubectl commands communicate with the kube-apiserver.
+- The kube-apiserver authenticates users and authorizes requests.
+- It validates Kubernetes objects before accepting them.
+- Only the kube-apiserver reads from and writes directly to etcd.
+- The kube-apiserver does not schedule Pods or run containers.
+
+### Common kubectl commands
+
+    kubectl get
+    kubectl apply
+    kubectl describe
+    kubectl delete
+    kubectl logs
+    kubectl exec
+
+### Summary
+
+The kube-apiserver is the central communication hub of Kubernetes. Every request to the cluster passes through it, making it one of the most important components in the Kubernetes architecture.
+
+---
+
+## Lab 2.5 – etcd
+
+### Objective
+
+Understand the role of etcd as the Kubernetes database.
+
+### Key points
+
+- etcd is the distributed key-value database of Kubernetes.
+- It stores the cluster's desired and current state.
+- Kubernetes objects such as Pods, Deployments, Services, ConfigMaps, Secrets and Nodes are stored in etcd.
+- etcd does not store container images or application data.
+- Only the kube-apiserver reads from and writes directly to etcd.
+- etcd does not schedule Pods or run containers.
+
+### Summary
+
+etcd is the single source of truth for the Kubernetes Cluster. It stores the complete cluster state, allowing Kubernetes components to work together and maintain the desired state of the system.
