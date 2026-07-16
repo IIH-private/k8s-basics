@@ -253,3 +253,64 @@ Understand the role of the Container Runtime in Kubernetes.
 ### Summary
 
 The Container Runtime is responsible for running containers on Worker Nodes. It works closely with the kubelet, which instructs it to pull images and create or remove containers as required by the Kubernetes Control Plane.
+
+---
+
+## Lab 2.11 – Life of a Pod
+
+### Objective
+
+Understand the complete lifecycle of a Pod from the moment a user submits a request until the Pod is running.
+
+### Lifecycle
+
+1. The user submits a request using `kubectl`.
+2. The kube-apiserver authenticates, authorizes and validates the request.
+3. The desired state is stored in etcd.
+4. The Controller Manager detects that the desired state does not match the current state.
+5. The Controller Manager creates the required Pod object.
+6. The Scheduler selects the most suitable Worker Node for the Pod.
+7. The scheduling decision is stored through the kube-apiserver.
+8. The kubelet running on the selected Worker Node detects the newly assigned Pod.
+9. The kubelet instructs the Container Runtime to create and start the container.
+10. The Container Runtime pulls the image (if necessary), creates the container and starts it.
+11. The kubelet reports the Pod status back to the kube-apiserver.
+12. If the Pod is exposed through a Service, kube-proxy updates the networking rules so traffic can reach the Pod.
+
+### Complete Flow
+
+    User
+      │
+      ▼
+    kubectl
+      │
+      ▼
+    kube-apiserver
+      │
+      ▼
+    etcd
+      ▲
+      │
+    Controller Manager
+      │
+      ▼
+    Scheduler
+      │
+      ▼
+    kube-apiserver
+      │
+      ▼
+    kubelet
+      │
+      ▼
+    Container Runtime
+      │
+      ▼
+    Pod Running
+      │
+      ▼
+    kube-proxy (if a Service exists)
+
+### Summary
+
+The lifecycle of a Pod involves multiple Kubernetes components working together. The kube-apiserver acts as the central communication hub, etcd stores the desired state, the Controller Manager ensures that the desired state is maintained, the Scheduler selects the best Worker Node, the kubelet starts the workload through the Container Runtime, and kube-proxy ensures that network traffic reaches the Pod through Kubernetes Services.
