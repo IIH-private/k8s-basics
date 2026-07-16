@@ -232,3 +232,24 @@ Understand the role of kube-proxy in Kubernetes networking.
 ### Summary
 
 The kube-proxy is the networking agent running on every Worker Node. It maintains the networking rules that allow Kubernetes Services to reliably route traffic to the correct Pods, even when Pod IP addresses change.
+
+---
+
+## Lab 2.10 – Container Runtime
+
+### Objective
+
+Understand the role of the Container Runtime in Kubernetes.
+
+### Key points
+
+- A Container Runtime runs on every Worker Node.
+- The kubelet communicates with the Container Runtime.
+- The Container Runtime downloads container images when needed.
+- It creates, starts, stops and removes containers.
+- Common Container Runtimes include containerd and CRI-O.
+- The Container Runtime does not schedule Pods or manage the cluster state.
+
+### Summary
+
+The Container Runtime is responsible for running containers on Worker Nodes. It works closely with the kubelet, which instructs it to pull images and create or remove containers as required by the Kubernetes Control Plane.
