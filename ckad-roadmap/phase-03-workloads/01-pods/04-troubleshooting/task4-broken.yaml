@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: broken-app
+spec:
+  volumes:
+  - name: shared-data
+    emptyDir: {}
+
+  containers:
+  - name: app
+    image: busybox
+    command:
+    - /bin/sh
+    - -c
+    - echo "Application started"; sleep 3600
+
+    env:
+    - name: APP_ENV
+      value: production
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 64Mi
+      limits:
+        cpu: 300m
+        memory: 128Mi
+
+    volumeMounts:
+    - name: shared-data
+      mountPath: /shared
+
+    readinessProbe:
+      exec:
+        command:
+        - cat
+        - /shared/ready.txt
+      initialDelaySeconds: 2
+      periodSeconds: 5
+
+  initContainers:
+  - name: init-writer
+    image: busybox
+    command:
+    - /bin/sh
+    - -c
+    - echo "ready" > /shared/ready.txt
+    volumeMounts:
+    - name: shared-data
+      mountPath: /shared

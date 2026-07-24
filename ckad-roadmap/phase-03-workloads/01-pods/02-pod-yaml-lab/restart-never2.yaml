@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: restart-never2
+spec:
+  containers:
+  - args:
+    - "sleep 5; echo $?"
+    command: ["bin/sh", "-c"]
+    image: busybox
+    name: worker
+  restartPolicy: Never

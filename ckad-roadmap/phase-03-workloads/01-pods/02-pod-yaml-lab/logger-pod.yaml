@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: logger
+spec:
+  volumes:
+  - name: sharedlogs
+    hostPath: 
+      path: /var/log
+  containers:
+  - args:
+    - "3600"
+    command:
+    - sleep  
+    image: busybox
+    name: logger
+    volumeMounts:
+    - name: sharedlogs
+      mountPath: /hostlogs

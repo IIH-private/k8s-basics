@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: node-info
+spec:
+  volumes:
+  - name: etc
+    hostPath:
+      path: /etc
+  containers:
+  - command:
+    - sleep 
+    args:
+    - "3600"
+    image: busybox
+    name: toolbox
+    volumeMounts:
+    - name: etc
+      mountPath: /hostetc
+        
