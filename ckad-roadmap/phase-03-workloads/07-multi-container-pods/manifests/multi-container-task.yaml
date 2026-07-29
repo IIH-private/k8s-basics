@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: web-logger
+spec:
+  volumes:
+  - name: shared-logs
+    emptyDir: {}
+  containers:
+  - image: nginx:1.27
+    name: web
+    volumeMounts:
+      - name: shared-logs
+        mountPath: /var/log/nginx  
+  - image: busybox:1.36
+    name: logger
+    command:
+      - sh
+      - -c
+      - |
+        touch /var/log/nginx/access.log 
+        tail -f /var/log/nginx/access.log  
+    volumeMounts:
+      - name: shared-logs
+        mountPath: /var/log/nginx  
