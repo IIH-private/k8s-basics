@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: multiple-init
+spec:
+  volumes:
+    - name: shared-data
+      emptyDir: {}
+  initContainers:
+  - name: init-1
+    image: busybox:1.36
+    command:
+      - sh
+      - -c
+      - |
+        echo "Created by Init 1" > /work/file1.txt
+    volumeMounts:
+    - name: shared-data
+      mountPath: /work    
+  - name: init-2
+    image: busybox:1.36
+    command:
+      - sh
+      - -c
+      - |
+        echo "Created by Init 2" > /work/file2.txt
+    volumeMounts:
+    - name: shared-data
+      mountPath: /work    
+  containers:
+  - image: nginx:latest
+    name: app
+    volumeMounts:
+      - name: shared-data
+        mountPath: /usr/share/nginx/html  
