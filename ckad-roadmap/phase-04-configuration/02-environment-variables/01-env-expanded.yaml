@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    app: env-demo
+    owener: ingvar
+  name: env-demo
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - |
+      echo "Application color: $APP_COLOR"
+        echo "Application version: $APP_VERSION"  
+        echo "Company: $COMPANY"
+    env:
+    - name: APP_COLOR
+      value: blue
+    - name: APP_VERSION
+      value: "1.0"
+    - name: COMPANY
+      value: CKAD-lab
+    image: busybox:1.36
+    name: busybox
+  restartPolicy: Never    
