@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-only-args
+spec:
+  containers:
+  - args:
+    - "30"
+    command:
+    - sleep  
+    image: busybox
+    name: busybox
+  restartPolicy: Never

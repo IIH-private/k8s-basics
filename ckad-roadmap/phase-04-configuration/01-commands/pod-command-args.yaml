@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-command-args
+spec:
+  containers:
+  - command:
+    - echo
+    args:  
+    - "Hello"
+    - "from"
+    - "CKAD"
+    image: busybox
+    name: busybox
+  restartPolicy: Never

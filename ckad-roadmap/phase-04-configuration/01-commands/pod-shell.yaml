@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: pod-shell
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - |
+       echo "Starting ..."; 
+       pwd; 
+       ls /; 
+       echo "Sleeping ..."; 
+       sleep 10; 
+       echo "Finished."
+    image: busybox
+    name: busybox
+  restartPolicy: Never
