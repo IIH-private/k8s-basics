@@ -1,0 +1,9 @@
+apiVersion: v1
+data:
+  APP_COLOR: green
+  APP_MODE: development
+  LOG_LEVEL: debug
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: cm-env

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config-volume-demo
+spec:
+  volumes:
+  - name: config-volume
+    configMap:
+      name: app-config
+  containers:
+  - command:
+    - sh
+    - -c
+    - |
+      echo "Files in /etc/config:"
+      ls -l /etc/config
+      echo 
+      echo "APP_COLOR:"
+      cat /etc/config/APP_COLOR
+      echo
+      echo "APP_MODE:"
+      cat /etc/config/APP_MODE
+      sleep 3600
+    image: busybox:1.36
+    name: demo
+    volumeMounts:
+    - name: config-volume
+      mountPath: /etc/config  
