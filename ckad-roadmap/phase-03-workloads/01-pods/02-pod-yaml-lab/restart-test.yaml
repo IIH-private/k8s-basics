@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: restart-test
+  name: restart-test
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - |
+      echo "CKAD restart test"
+      sleep 10
+      exit 1
+    image: busybox
+    name: app
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: OnFailure
+status: {}
