@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: env-multi
+  name: env-multi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: env-multi
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: env-multi
+    spec:
+      containers:
+      - image: busybox:1.36
+        name: logger
+        command: 
+        - sleep
+        - "3600"  
+      - image: nginx:1.27
+        name: web     
