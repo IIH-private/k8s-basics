@@ -127,6 +127,7 @@ Follow logs:
 
 ```bash
 kubectl logs -f <pod> -c <container>
+kubectl logs -f <pod> --all-containers
 ```
 
 Delete a Pod:
