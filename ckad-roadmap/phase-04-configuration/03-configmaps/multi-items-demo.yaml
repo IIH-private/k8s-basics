@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: multi-items-demo
+  name: multi-items-demo
+spec:
+  volumes:
+    - name: config-volume
+      configMap:
+          name: app-config
+          items:
+            - key: APP_COLOR
+              path: color
+            - key: APP_MODE
+              path: mode    
+  containers:
+  - command:
+    - sleep
+    - "3600"
+    image: alpine:3.20
+    name: multi-items-demo
+    volumeMounts:
+      - name: config-volume
+        mountPath: /etc/settings  
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
