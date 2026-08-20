@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: optional-missing-key
+  name: optional-missing-key
+spec:
+  volumes:
+    - name: secret-volume
+      secret:
+        secretName: database-env-secret
+        optional: true  
+        items:
+          - key: DB_USER
+            path: username
+          - key: API_TOKEN
+            path: token    
+  containers:
+  - command:
+    - sleep
+    - "3600"
+    image: alpine
+    name: missing-secret-key
+    volumeMounts:
+      - name: secret-volume
+        mountPath: /etc/database
+        readOnly: true  
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
