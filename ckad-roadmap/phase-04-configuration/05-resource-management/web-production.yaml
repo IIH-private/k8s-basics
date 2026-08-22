@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: web-production
+  name: web-production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: web-production
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: web-production
+    spec:
+      containers:
+      - image: nginx:1.29
+        name: nginx
+        resources:
+          requests:
+            cpu: "100m"
+            memory: "64Mi"
+          limits:
+            cpu: "250m"
+            memory: "128Mi"    
+status: {}

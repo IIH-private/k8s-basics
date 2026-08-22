@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: memory-limit
+  name: memory-limit
+spec:
+  containers:
+  - command:
+    - sh
+    - -c
+    - "dd if=/dev/zero of=/dev/shm/test bs=1M count=100; sleep 3600"
+    image: alpine:3.22
+    name: memory-limit
+    resources:
+      requests:
+        memory: "32Mi"
+      limits:
+        memory: "64Mi"    
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
